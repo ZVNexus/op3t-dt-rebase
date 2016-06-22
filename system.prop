@@ -17,7 +17,7 @@ persist.rild.nitz_short_ons_3=
 ril.subscription.types=NV,RUIM
 DEVICE_PROVISIONED=1
 # Start in global mode
-ro.telephony.default_network=10
+ro.telephony.default_network=22,22
 
 debug.sf.enable_hwc_vds=1
 debug.sf.hw=1
@@ -116,7 +116,7 @@ ro.vendor.display.cabl=2
 #
 # System props for telephony
 # System prop to turn on CdmaLTEPhone always
-telephony.lteOnCdmaDevice=1
+telephony.lteOnCdmaDevice=1,1
 
 #Simulate sdcard on /data/media
 #
