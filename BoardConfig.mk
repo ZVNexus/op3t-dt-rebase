@@ -7,6 +7,8 @@ TARGET_BOARD_PLATFORM := msm8996
 # This value will be shown on fastboot menu
 TARGET_BOOTLOADER_BOARD_NAME := msm8996
 
+TARGET_OTA_ASSERT_DEVICE := OnePlus3,oneplus3,OnePlus3T,oneplus3t
+
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
@@ -93,6 +95,7 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 
 TARGET_NO_RPC := true
 
+TARGET_UNIFIED_DEVICE := true
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 TARGET_INIT_VENDOR_LIB := libinit_oneplus3
 TARGET_RECOVERY_DEVICE_MODULES := libinit_oneplus3
