@@ -136,6 +136,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_AAPT_CONFIG += normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.heapstartsize=16m \
+    dalvik.vm.heapgrowthlimit=256m \
+    dalvik.vm.heapsize=512m \
+    dalvik.vm.heaptargetutilization=0.75 \
+    dalvik.vm.heapminfree=4m \
+    dalvik.vm.heapmaxfree=8m
+
 # Powerhint configuration file
 PRODUCT_COPY_FILES += \
 device/oneplus/oneplus3/configs/powerhint.xml:system/etc/powerhint.xml
