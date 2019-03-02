@@ -1,3 +1,8 @@
+$(call inherit-product, vendor/oneplus/oneplus3/oneplus3-vendor.mk)
+$(call inherit-product, vendor/extras/configs/phone-xxhdpi-4096-dalvik-heap.mk)
+$(call inherit-product, vendor/extras/configs/phone-xxhdpi-2048-hwui-memory.mk)
+$(call inherit-product, device/oneplus/extras/common.mk)
+
 ALLOW_MISSING_DEPENDENCIES=true
 
 DEVICE_PACKAGE_OVERLAYS += \
