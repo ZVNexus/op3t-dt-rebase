@@ -5,20 +5,19 @@
 
 TARGET_BOARD_PLATFORM := msm8996
 # This value will be shown on fastboot menu
-TARGET_BOOTLOADER_BOARD_NAME := QC_Reference_Phone
+TARGET_BOOTLOADER_BOARD_NAME := msm8996
 
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := kryo
-#TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a53
+TARGET_2ND_CPU_VARIANT := kyro
 
 TARGET_NO_BOOTLOADER := false
 TARGET_NO_KERNEL := false
@@ -35,24 +34,23 @@ USE_CAMERA_STUB := true
 
 #USE_CLANG_PLATFORM_BUILD := true
 
--include $(QCPATH)/common/msm8996/BoardConfigVendor.mk
+-include vendor/oneplus/oneplus3/BoardConfigVendor.mk
 
 # Some framework code requires this to enable BT
 BOARD_HAVE_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/oneplus/oneplus3/bluetooth
 
 USE_OPENGL_RENDERER := true
 BOARD_USE_LEGACY_UI := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 
-TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
-
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
+TARGET_USERIMAGES_USE_EXT4 := false
+BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 268435456
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-#TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_msm
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
+
 # Enable System As Root even for non-A/B from P onwards
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 
@@ -60,11 +58,9 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_BOOTIMG_HEADER_VERSION := 1
 BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 10737418240
-BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
-BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3154116608
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 57436708864
+BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
@@ -72,25 +68,15 @@ TARGET_USES_HWC2 := true
 TARGET_USES_GRALLOC1 := true
 TARGET_USES_QCOM_DISPLAY_BSP := true
 TARGET_USES_COLOR_METADATA := true
-
-ifneq ($(TARGET_USES_AOSP),true)
 TARGET_USES_QCOM_BSP := true
-endif
 
-ifeq ($(BOARD_KERNEL_CMDLINE),)
-ifeq ($(TARGET_KERNEL_VERSION),4.4)
-    BOARD_KERNEL_CMDLINE += console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 androidboot.usbconfigfs=true
-else
-    BOARD_KERNEL_CMDLINE += console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0
-endif
-
-BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7
+BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0
 
 endif
 
-BOARD_SECCOMP_POLICY := device/qcom/$(TARGET_BOARD_PLATFORM)/seccomp
+BOARD_SECCOMP_POLICY := device/oneplus/oneplus3/seccomp
 
-BOARD_EGL_CFG := device/qcom/$(TARGET_BOARD_PLATFORM)/egl.cfg
+BOARD_EGL_CFG := device/oneplus/oneplus3/configs/egl.cfg
 
 BOARD_KERNEL_BASE        := 0x80000000
 BOARD_KERNEL_PAGESIZE    := 4096
@@ -101,6 +87,9 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_USES_UNCOMPRESSED_KERNEL := false
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_KERNEL_SOURCE := kernel/oneplus/msm8996
+TARGET_KERNEL_CONFIG := du_oneplus3_defconfig
 
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
@@ -114,8 +103,6 @@ TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_PER_MGR_ENABLED := true
 
 TARGET_HW_DISK_ENCRYPTION := true
-
-TARGET_CRYPTFS_HW_PATH := device/qcom/common/cryptfs_hw
 
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 TARGET_BOOTIMG_SIGNED := true
@@ -146,15 +133,6 @@ TARGET_COMPILE_WITH_MSM_KERNEL := true
 TARGET_KERNEL_APPEND_DTB := true
 # Added to indicate that protobuf-c is supported in this build
 PROTOBUF_SUPPORTED := false
-
-#Add NON-HLOS files for ota upgrade
-ADD_RADIO_FILES := true
-TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
-
-#Add support for firmare upgrade on 8996
-HAVE_SYNAPTICS_DSX_FW_UPGRADE := true
-
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.msm
 
 #Enable DRM plugins 64 bit compilation
 TARGET_ENABLE_MEDIADRM_64 := true
