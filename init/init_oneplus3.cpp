@@ -1,6 +1,5 @@
 /*
-   Copyright (c) 2015, The Linux Foundation. All rights reserved.
-
+   Copyright (c) 2015, The CyanogenMod Project
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
@@ -13,7 +12,6 @@
     * Neither the name of The Linux Foundation nor the names of its
       contributors may be used to endorse or promote products derived
       from this software without specific prior written permission.
-
    THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
    WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
@@ -36,17 +34,39 @@
 
 #include "init_msm.h"
 
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
-{
-    char platform[PROP_VALUE_MAX];
+void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type) {
+    char device[PROP_VALUE_MAX];
+    char rf_version[PROP_VALUE_MAX];
     int rc;
 
     UNUSED(msm_id);
     UNUSED(msm_ver);
+    UNUSED(board_type);
 
-    rc = property_get("ro.board.platform", platform);
-    if (!rc || !ISMATCH(platform, ANDROID_TARGET))
+    rc = property_get("ro.cm.device", device);
+    if (!rc || !ISMATCH(device, "oneplus3"))
         return;
 
-    property_set(PROP_LCDDENSITY, "480");
+    property_get("ro.boot.rf_version", rf_version);
+
+    if (strstr(rf_version, "11")) {
+        /* Chinese */
+        property_set("ro.product.model", "ONE A3000");
+        property_set("ro.rf_version", "TDD_FDD_Ch_All");
+        property_set("ro.telephony.default_network", "22");
+        property_set("telephony.lteOnCdmaDevice", "1,1");
+        property_set("persist.radio.force_on_dc", "true");
+    } else if (strstr(rf_version, "21")) {
+        /* Asia/Europe */
+        property_set("ro.product.model", "ONE A3003");
+        property_set("ro.rf_version", "TDD_FDD_Eu");
+        property_set("ro.telephony.default_network", "9");
+    } else if (strstr(rf_version, "31")) {
+        /* America */
+        property_set("ro.product.model", "ONE A3000");
+        property_set("ro.rf_version", "TDD_FDD_Am");
+        property_set("telephony.lteOnCdmaDevice", "1,1");
+        property_set("ro.telephony.default_network", "10");
+        property_set("persist.radio.force_on_dc", "true");
+    }
 }
