@@ -127,7 +127,6 @@ EARLY_MOUNT_SUPPORT := true
 # Enable build with MSM kernel
 TARGET_COMPILE_WITH_MSM_KERNEL := true
 
-TARGET_KERNEL_APPEND_DTB := true
 # Added to indicate that protobuf-c is supported in this build
 PROTOBUF_SUPPORTED := false
 
