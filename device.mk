@@ -48,8 +48,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     telephony-ext
 
-PRODUCT_BOOT_JARS += WfdCommon
-
 DEVICE_MANIFEST_FILE := device/oneplus/oneplus3/configs/manifest.xml
 DEVICE_MATRIX_FILE   := device/oneplus/oneplus3/configs/compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/oneplus/oneplus3/configs/framework_manifest.xml
