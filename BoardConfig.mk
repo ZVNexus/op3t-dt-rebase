@@ -72,8 +72,6 @@ TARGET_USES_QCOM_BSP := true
 
 BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=32M@0-0xffffffff firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0
 
-endif
-
 BOARD_SECCOMP_POLICY := device/oneplus/oneplus3/seccomp
 
 BOARD_EGL_CFG := device/oneplus/oneplus3/configs/egl.cfg
