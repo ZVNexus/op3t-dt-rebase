@@ -88,10 +88,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE       := fstab.qcom
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
-ifeq ($(ENABLE_AB), true)
-  LOCAL_SRC_FILES    := fstab_AB_variant.qti
-else
-  LOCAL_SRC_FILES    := fstab_non_AB_variant.qti
+LOCAL_SRC_FILES    := fstab.qti
 endif
 LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR_ETC)
 include $(BUILD_PREBUILT)
